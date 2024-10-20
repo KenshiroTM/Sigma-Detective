@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://nbtthat8n2t7"]
+
+[resource]
+Button/font_sizes/font_size = 40
+CheckButton/font_sizes/font_size = 40
+Label/font_sizes/font_size = 40
+OptionButton/font_sizes/font_size = 40
+PopupMenu/font_sizes/font_size = 40

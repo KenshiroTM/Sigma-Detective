@@ -1,0 +1,234 @@
+[gd_scene load_steps=4 format=3 uid="uid://mnb88scf0ysd"]
+
+[ext_resource type="Theme" uid="uid://cojh1syep4tlh" path="res://Scenes/MenuButtonTheme.tres" id="1_3mgc6"]
+[ext_resource type="Script" path="res://Scenes/MenuCanvas.cs" id="1_5n6gt"]
+[ext_resource type="Theme" path="res://Scenes/OptionButtons.tres" id="3_n5x5n"]
+
+[node name="MainMenuScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="MenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("menuWindow", "optionsWindow", "playMenu", "backToMenuFromPlay", "backToMenuBtn", "playBtn", "optionsBtn", "exitBtn")]
+layer = 0
+script = ExtResource("1_5n6gt")
+menuWindow = NodePath("MainMenu")
+optionsWindow = NodePath("OptionsMenu")
+playMenu = NodePath("PlayMenu")
+backToMenuFromPlay = NodePath("PlayMenu/BackToMenuBtn")
+backToMenuBtn = NodePath("OptionsMenu/BackToMenu")
+playBtn = NodePath("MainMenu/FlowContainer/Play")
+optionsBtn = NodePath("MainMenu/FlowContainer/Options")
+exitBtn = NodePath("MainMenu/FlowContainer/Exit")
+
+[node name="MainMenu" type="ReferenceRect" parent="MenuCanvas"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+border_color = Color(0, 0, 0, 0)
+
+[node name="FlowContainer" type="FlowContainer" parent="MenuCanvas/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -251.5
+offset_right = 228.0
+offset_bottom = 251.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="MenuCanvas/MainMenu/FlowContainer"]
+layout_mode = 2
+theme = ExtResource("1_3mgc6")
+text = "Play"
+
+[node name="Options" type="Button" parent="MenuCanvas/MainMenu/FlowContainer"]
+layout_mode = 2
+theme = ExtResource("1_3mgc6")
+text = "Options"
+
+[node name="Exit" type="Button" parent="MenuCanvas/MainMenu/FlowContainer"]
+layout_mode = 2
+theme = ExtResource("1_3mgc6")
+text = "Exit"
+
+[node name="PlayMenu" type="ReferenceRect" parent="MenuCanvas"]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+border_color = Color(0, 0, 0, 0)
+
+[node name="BackToMenuBtn" type="Button" parent="MenuCanvas/PlayMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -397.5
+offset_right = 397.5
+offset_bottom = 165.0
+grow_horizontal = 2
+theme = ExtResource("1_3mgc6")
+text = "Back to menu"
+
+[node name="OptionsMenu" type="ReferenceRect" parent="MenuCanvas"]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+border_color = Color(1, 0, 0, 0)
+
+[node name="BackToMenu" type="Button" parent="MenuCanvas/OptionsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -397.5
+offset_top = -382.5
+offset_right = 397.5
+offset_bottom = -217.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3mgc6")
+text = "Back to menu"
+
+[node name="FramerateContainer" type="VBoxContainer" parent="MenuCanvas/OptionsMenu"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = -50.0
+offset_right = 330.0
+offset_bottom = 16.0
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_n5x5n")
+
+[node name="FramerateContainer" type="HBoxContainer" parent="MenuCanvas/OptionsMenu/FramerateContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="FramerateText" type="Label" parent="MenuCanvas/OptionsMenu/FramerateContainer/FramerateContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+text = "Framerate"
+
+[node name="FramerateOption" type="OptionButton" parent="MenuCanvas/OptionsMenu/FramerateContainer/FramerateContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+selected = 0
+item_count = 5
+popup/item_0/text = "30"
+popup/item_1/text = "60"
+popup/item_1/id = 1
+popup/item_2/text = "75"
+popup/item_2/id = 2
+popup/item_3/text = "120"
+popup/item_3/id = 3
+popup/item_4/text = "144"
+popup/item_4/id = 4
+
+[node name="VsyncCheck" type="CheckButton" parent="MenuCanvas/OptionsMenu/FramerateContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+text = "Vsync"
+
+[node name="ScreenContainer" type="VBoxContainer" parent="MenuCanvas/OptionsMenu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -405.0
+offset_top = -50.0
+offset_right = -200.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_n5x5n")
+
+[node name="Resolution" type="HBoxContainer" parent="MenuCanvas/OptionsMenu/ScreenContainer"]
+layout_direction = 1
+layout_mode = 2
+
+[node name="ResText" type="Label" parent="MenuCanvas/OptionsMenu/ScreenContainer/Resolution"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+text = "Resolution"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResOption" type="OptionButton" parent="MenuCanvas/OptionsMenu/ScreenContainer/Resolution"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+selected = 0
+item_count = 6
+popup/item_0/text = "1920x1080"
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1536x864"
+popup/item_2/id = 2
+popup/item_3/text = "1440x900"
+popup/item_3/id = 3
+popup/item_4/text = "1366x768"
+popup/item_4/id = 4
+popup/item_5/text = "1280x720"
+popup/item_5/id = 5
+
+[node name="FullscreenCheck" type="CheckButton" parent="MenuCanvas/OptionsMenu/ScreenContainer"]
+layout_direction = 1
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+text = "Fullscreen"
+
+[node name="SoundContainer" type="VBoxContainer" parent="MenuCanvas/OptionsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.5
+offset_top = 123.0
+offset_right = 275.5
+offset_bottom = 277.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_n5x5n")
+
+[node name="MusicText" type="Label" parent="MenuCanvas/OptionsMenu/SoundContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+text = "Music 50%"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="MenuCanvas/OptionsMenu/SoundContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+value = 50.0
+
+[node name="SFXText" type="Label" parent="MenuCanvas/OptionsMenu/SoundContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+text = "Sound effects 50%"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="MenuCanvas/OptionsMenu/SoundContainer"]
+layout_mode = 2
+theme = ExtResource("3_n5x5n")
+value = 50.0
+
+[node name="ButtonClickSfx" type="AudioStreamPlayer2D" parent="."]
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
