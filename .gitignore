@@ -11,6 +11,7 @@ export_presets.cfg
 *.translation
 
 #Mono-specific ignores
+.vs
 .mono/
 data_*/
 mono_crash.*.json
