@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://mnb88scf0ysd"]
+[gd_scene load_steps=5 format=3 uid="uid://mnb88scf0ysd"]
 
 [ext_resource type="Theme" uid="uid://cojh1syep4tlh" path="res://Scenes/MenuButtonTheme.tres" id="1_3mgc6"]
 [ext_resource type="Script" path="res://Scenes/MenuCanvas.cs" id="1_5n6gt"]
 [ext_resource type="Theme" uid="uid://nbtthat8n2t7" path="res://Scenes/OptionButtons.tres" id="3_n5x5n"]
+[ext_resource type="AudioStream" uid="uid://dley6y2pbmore" path="res://Audio/Music/piano-sonata-267045.mp3" id="4_k8ikb"]
 
 [node name="MainMenuScene" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="MenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("menuWindow", "optionsWindow", "playMenu", "backToMenuFromPlay", "backToMenuBtn", "playBtn", "optionsBtn", "exitBtn")]
+[node name="MenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("menuWindow", "optionsWindow", "playMenu", "backToMenuFromPlay", "backToMenuBtn", "resolutionSelect", "fullscreenCheck", "musicText", "musicSlider", "sfxText", "sfxSlider", "voicesText", "voicesSlider", "playBtn", "optionsBtn", "exitBtn", "buttonClickSFX", "menuSoundtrack")]
 layer = 0
 script = ExtResource("1_5n6gt")
 menuWindow = NodePath("MainMenu")
@@ -17,9 +18,19 @@ optionsWindow = NodePath("OptionsMenu")
 playMenu = NodePath("PlayMenu")
 backToMenuFromPlay = NodePath("PlayMenu/BackToMenuBtn")
 backToMenuBtn = NodePath("OptionsMenu/FlowContainer/BackToMenu")
+resolutionSelect = NodePath("OptionsMenu/FlowContainer/ScreenContainer/Resolution/ResOption")
+fullscreenCheck = NodePath("OptionsMenu/FlowContainer/ScreenContainer/FullscreenCheck")
+musicText = NodePath("OptionsMenu/FlowContainer/SoundContainer/MusicText")
+musicSlider = NodePath("OptionsMenu/FlowContainer/SoundContainer/MusicSlider")
+sfxText = NodePath("OptionsMenu/FlowContainer/SoundContainer/SFXText")
+sfxSlider = NodePath("OptionsMenu/FlowContainer/SoundContainer/SFXSlider")
+voicesText = NodePath("OptionsMenu/FlowContainer/SoundContainer/CharacterVoiceSlider2")
+voicesSlider = NodePath("OptionsMenu/FlowContainer/SoundContainer/CharacterVoiceSlider")
 playBtn = NodePath("MainMenu/FlowContainer/Play")
 optionsBtn = NodePath("MainMenu/FlowContainer/Options")
 exitBtn = NodePath("MainMenu/FlowContainer/Exit")
+buttonClickSFX = NodePath("../ButtonClickSfx")
+menuSoundtrack = NodePath("../MenuMusic")
 
 [node name="MainMenu" type="ReferenceRect" parent="MenuCanvas"]
 visible = false
@@ -177,5 +188,8 @@ text = "Character voice 50%"
 horizontal_alignment = 1
 
 [node name="ButtonClickSfx" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sound Effects"
 
 [node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_k8ikb")
+bus = &"Music"
