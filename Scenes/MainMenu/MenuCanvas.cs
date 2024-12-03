@@ -13,6 +13,7 @@ public partial class MenuCanvas : CanvasLayer
     [Export] public Button backToMenuFromPlay;
 
     [ExportSubgroup("OptionsWindowsButtons")]
+    [Export] public Button gamePlayButton;
     [Export] public Button backToMenuBtn;
 
     [Export] public OptionButton resolutionSelect;
@@ -43,7 +44,8 @@ public partial class MenuCanvas : CanvasLayer
         LoadSettings();
         // AddButtonsSfx();
         menuSoundtrack.Play();
-        // backToMenuFromPlay.Pressed += () => buttonClickSFX.Play();
+        // assign to play game
+        gamePlayButton.Pressed += StartGame;
 
         //adding functions to buttons
         playBtn.Pressed += SwapPlay;
@@ -242,6 +244,6 @@ public partial class MenuCanvas : CanvasLayer
     }
     public void StartGame()
     {
-
+        GetTree().ChangeSceneToFile("res://Scenes/Game/Game.tscn");
     }
 }

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c00f1x854gcab"]
+
+[ext_resource type="Script" path="res://Scenes/Game/PauseMenu.cs" id="1_y8jxn"]
+[ext_resource type="PackedScene" uid="uid://mnb88scf0ysd" path="res://Scenes/MainMenu/MainMenu.tscn" id="2_87md4"]
+
+[node name="Game" type="Node2D"]
+
+[node name="PauseMenu" type="CanvasLayer" parent="." node_paths=PackedStringArray("backToMenuBtn")]
+script = ExtResource("1_y8jxn")
+backToMenuBtn = NodePath("Back to menu")
+mainMenu = ExtResource("2_87md4")
+
+[node name="Back to menu" type="Button" parent="PauseMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.5
+offset_right = 57.5
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Back to menu"
