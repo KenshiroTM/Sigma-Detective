@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://mnb88scf0ysd"]
+[gd_scene load_steps=5 format=3 uid="uid://mnb88scf0ysd"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/MenuCanvas.cs" id="1_nunrd"]
 [ext_resource type="Theme" uid="uid://cojh1syep4tlh" path="res://Scenes/MainMenu/MenuButtonTheme.tres" id="2_uwaoo"]
-[ext_resource type="PackedScene" uid="uid://c00f1x854gcab" path="res://Scenes/Game/Game.tscn" id="2_wtnaq"]
 [ext_resource type="Theme" uid="uid://nbtthat8n2t7" path="res://Scenes/MainMenu/OptionButtons.tres" id="3_o5goc"]
 [ext_resource type="AudioStream" uid="uid://dley6y2pbmore" path="res://Audio/Music/piano-sonata-267045.mp3" id="4_5lgew"]
 
@@ -19,7 +18,6 @@ optionsWindow = NodePath("OptionsMenu")
 playMenu = NodePath("PlayMenu")
 backToMenuFromPlay = NodePath("PlayMenu/BackToMenuBtn")
 gamePlayButton = NodePath("PlayMenu/PlayButton")
-gameScene = ExtResource("2_wtnaq")
 backToMenuBtn = NodePath("OptionsMenu/FlowContainer/BackToMenu")
 resolutionSelect = NodePath("OptionsMenu/FlowContainer/ScreenContainer/Resolution/ResOption")
 fullscreenCheck = NodePath("OptionsMenu/FlowContainer/ScreenContainer/FullscreenCheck")
