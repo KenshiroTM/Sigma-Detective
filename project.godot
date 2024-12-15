@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="res://Audio/AudioMixer.tres"
 
+[autoload]
+
+GameManager="*res://Scripts/GameManager.cs"
+
 [display]
 
 window/size/viewport_width=1920

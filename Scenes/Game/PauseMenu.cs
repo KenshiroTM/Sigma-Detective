@@ -7,11 +7,13 @@ public partial class PauseMenu : CanvasLayer
 
     public override void _Ready()
     {
+        GameManager.gameState = GameManager.GameState.InGame;
+
         backToMenuBtn.Pressed += loadMenu;
     }
 
     public void loadMenu()
     {
-        GetTree().ChangeSceneToFile("res://Scenes/MainMenu/MainMenu.tscn");
+        GetTree().ChangeSceneToFile(GameManager.menuScene);
     }
 }

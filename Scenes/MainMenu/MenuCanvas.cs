@@ -41,6 +41,8 @@ public partial class MenuCanvas : CanvasLayer
 
     public override void _Ready() //if runs the game for first time
     {
+        GameManager.gameState = GameManager.GameState.MainMenu;
+
         LoadSettings();
         // AddButtonsSfx();
         menuSoundtrack.Play();
@@ -244,6 +246,6 @@ public partial class MenuCanvas : CanvasLayer
     }
     public void StartGame()
     {
-        GetTree().ChangeSceneToFile("res://Scenes/Game/Game.tscn");
+        GetTree().ChangeSceneToFile(GameManager.gameScene);
     }
 }
