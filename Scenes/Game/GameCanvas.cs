@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class PauseMenu : CanvasLayer
+public partial class GameCanvas : CanvasLayer
 {
     [Export] Button backToMenuBtn;
 
