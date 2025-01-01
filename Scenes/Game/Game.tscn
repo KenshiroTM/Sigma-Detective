@@ -4,11 +4,55 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("backToMenuBtn")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "backToMenuBtn", "story", "continueBtn", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton")]
 script = ExtResource("1_y8jxn")
+introductionWindow = NodePath("IntroductionScreen")
+gameWindow = NodePath("GameScreen")
 backToMenuBtn = NodePath("Back to menu")
+story = NodePath("IntroductionScreen/VBoxContainer/Introduction")
+continueBtn = NodePath("IntroductionScreen/VBoxContainer/Button")
+char1 = NodePath("GameScreen/InteractionContainer/GridContainer/Button")
+char2 = NodePath("GameScreen/InteractionContainer/GridContainer/Button2")
+char3 = NodePath("GameScreen/InteractionContainer/GridContainer/Button3")
+charlabel1 = NodePath("GameScreen/InteractionContainer/GridContainer/Label")
+charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/Label2")
+charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/Label3")
+playerInputText = NodePath("GameScreen/InteractionContainer/Input/TextEdit")
+sendButton = NodePath("GameScreen/InteractionContainer/Input/Send")
+
+[node name="IntroductionScreen" type="ReferenceRect" parent="GameCanvas"]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+border_width = 0.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameCanvas/IntroductionScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -1045.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Introduction" type="RichTextLabel" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Introduction to the story...
+press on character button to send message to him, after that output will appear. You can change character you can write to by clicking other character. (higfhlight of selected character would be nice)"
+
+[node name="Button" type="Button" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+text = "Continue"
 
 [node name="GameScreen" type="ReferenceRect" parent="GameCanvas"]
+visible = false
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -35,27 +79,33 @@ columns = 3
 custom_minimum_size = Vector2(0, 700)
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Character 1"
 
 [node name="Button2" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Character 2"
 
 [node name="Button3" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Character 3"
 
 [node name="Label" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Character output"
 
 [node name="Label2" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Character output"
 
 [node name="Label3" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Character output"
 
 [node name="Input" type="HBoxContainer" parent="GameCanvas/GameScreen/InteractionContainer"]
 layout_mode = 2
@@ -64,11 +114,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(1000, 100)
 layout_direction = 1
 layout_mode = 2
+placeholder_text = "Write input here, remember to press on a character you want to talk to"
 
 [node name="Send" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/Input"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Send to character"
 
 [node name="Back to menu" type="Button" parent="GameCanvas"]
 anchors_preset = 5
