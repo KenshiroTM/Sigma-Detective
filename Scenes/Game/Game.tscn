@@ -4,13 +4,16 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "backToMenuBtn", "story", "continueBtn", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton")]
 script = ExtResource("1_y8jxn")
 introductionWindow = NodePath("IntroductionScreen")
 gameWindow = NodePath("GameScreen")
+resultWindow = NodePath("GameResultScreen")
 backToMenuBtn = NodePath("Back to menu")
 story = NodePath("IntroductionScreen/VBoxContainer/Introduction")
 continueBtn = NodePath("IntroductionScreen/VBoxContainer/Button")
+guiltyButton = NodePath("GameScreen/GuiltyButton")
+infoLabel = NodePath("GameScreen/InfoLabel")
 char1 = NodePath("GameScreen/InteractionContainer/GridContainer/Button")
 char2 = NodePath("GameScreen/InteractionContainer/GridContainer/Button2")
 char3 = NodePath("GameScreen/InteractionContainer/GridContainer/Button3")
@@ -43,7 +46,7 @@ grow_vertical = 0
 layout_mode = 2
 size_flags_vertical = 3
 text = "Introduction to the story...
-press on character button to send message to him, after that output will appear. You can change character you can write to by clicking other character. (higfhlight of selected character would be nice)"
+press on character button to send message to him, after that output will appear. You can change character you can write to by clicking other character. (higfhlight of selected character would be nice, also picking a guilty character)"
 
 [node name="Button" type="Button" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
@@ -57,6 +60,31 @@ custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
 border_width = 0.0
+
+[node name="GuiltyButton" type="Button" parent="GameCanvas/GameScreen"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 1720.0
+offset_top = 980.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+text = "Show guilty person"
+
+[node name="InfoLabel" type="Label" parent="GameCanvas/GameScreen"]
+visible = false
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Pressed character will become guilty of a crime"
+horizontal_alignment = 1
 
 [node name="InteractionContainer" type="VBoxContainer" parent="GameCanvas/GameScreen"]
 layout_mode = 1
@@ -96,16 +124,21 @@ custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character output"
+horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character output"
+horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character output"
+horizontal_alignment = 1
 
 [node name="Input" type="HBoxContainer" parent="GameCanvas/GameScreen/InteractionContainer"]
 layout_mode = 2
@@ -117,10 +150,30 @@ layout_mode = 2
 placeholder_text = "Write input here, remember to press on a character you want to talk to"
 
 [node name="Send" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/Input"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Send to character"
+
+[node name="GameResultScreen" type="ReferenceRect" parent="GameCanvas"]
+visible = false
+custom_minimum_size = Vector2(1920, 1045)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Result" type="Label" parent="GameCanvas/GameResultScreen"]
+custom_minimum_size = Vector2(1920, 1045)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Back to menu" type="Button" parent="GameCanvas"]
 anchors_preset = 5

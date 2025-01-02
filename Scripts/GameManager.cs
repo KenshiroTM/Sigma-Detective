@@ -11,7 +11,8 @@ public class GameManager
         MainMenu,
         InGame,
         GameMenu,
-        GameWon
+        GameWon,
+        GameLost
     }
 
     public static GameState gameState = GameState.MainMenu;
