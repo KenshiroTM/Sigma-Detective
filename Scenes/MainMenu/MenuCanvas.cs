@@ -42,6 +42,7 @@ public partial class MenuCanvas : CanvasLayer
     public override void _Ready() //if runs the game for first time
     {
         GameManager.gameState = GameManager.GameState.MainMenu;
+        GameManager.ResetStory(); // resets story on launch
 
         LoadSettings();
         // AddButtonsSfx();

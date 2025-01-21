@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/MainMenu/MenuCanvas.cs" id="1_nunrd"]
 [ext_resource type="Theme" uid="uid://cojh1syep4tlh" path="res://Scenes/MainMenu/MenuButtonTheme.tres" id="2_uwaoo"]
 [ext_resource type="Theme" uid="uid://nbtthat8n2t7" path="res://Scenes/MainMenu/OptionButtons.tres" id="3_o5goc"]
-[ext_resource type="AudioStream" uid="uid://dley6y2pbmore" path="res://Audio/Music/piano-sonata-267045.mp3" id="4_5lgew"]
+[ext_resource type="AudioStream" uid="uid://cpxljktr28f2s" path="res://Audio/Music/Sigma_menu.mp3" id="4_xhdk3"]
 
 [node name="MainMenuScene" type="Control"]
 layout_mode = 3
@@ -11,7 +11,6 @@ anchors_preset = 0
 mouse_filter = 2
 
 [node name="MenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("menuWindow", "optionsWindow", "playMenu", "backToMenuFromPlay", "gamePlayButton", "backToMenuBtn", "resolutionSelect", "fullscreenCheck", "musicText", "musicSlider", "sfxText", "sfxSlider", "voicesText", "voicesSlider", "playBtn", "optionsBtn", "exitBtn", "buttonClickSFX", "menuSoundtrack")]
-layer = 0
 script = ExtResource("1_nunrd")
 menuWindow = NodePath("MainMenu")
 optionsWindow = NodePath("OptionsMenu")
@@ -209,5 +208,6 @@ horizontal_alignment = 1
 bus = &"Sound Effects"
 
 [node name="MenuMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_5lgew")
+stream = ExtResource("4_xhdk3")
+autoplay = true
 bus = &"Music"

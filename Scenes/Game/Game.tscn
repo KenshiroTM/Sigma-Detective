@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c00f1x854gcab"]
+[gd_scene load_steps=4 format=3 uid="uid://c00f1x854gcab"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameCanvas.cs" id="1_y8jxn"]
+[ext_resource type="AudioStream" uid="uid://dnpacwnqch3j0" path="res://Audio/Music/Sigma_Game.mp3" id="2_c1eul"]
+[ext_resource type="Theme" uid="uid://xwq5c7i34x3s" path="res://Scenes/Game/CharacterButton.tres" id="2_kjdet"]
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton", "gameResults", "gameMusic")]
 script = ExtResource("1_y8jxn")
 introductionWindow = NodePath("IntroductionScreen")
 gameWindow = NodePath("GameScreen")
@@ -12,7 +14,8 @@ resultWindow = NodePath("GameResultScreen")
 backToMenuBtn = NodePath("Back to menu")
 story = NodePath("IntroductionScreen/VBoxContainer/Introduction")
 continueBtn = NodePath("IntroductionScreen/VBoxContainer/Button")
-guiltyButton = NodePath("GameScreen/GuiltyButton")
+guiltyButton = NodePath("GameScreen/VBoxContainer/GuiltyButton")
+backToStoryButton = NodePath("GameScreen/VBoxContainer/GoBackToStoryButton")
 infoLabel = NodePath("GameScreen/InfoLabel")
 char1 = NodePath("GameScreen/InteractionContainer/GridContainer/Button")
 char2 = NodePath("GameScreen/InteractionContainer/GridContainer/Button2")
@@ -22,6 +25,8 @@ charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/Label2")
 charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/Label3")
 playerInputText = NodePath("GameScreen/InteractionContainer/Input/TextEdit")
 sendButton = NodePath("GameScreen/InteractionContainer/Input/Send")
+gameResults = NodePath("GameResultScreen/Result")
+gameMusic = NodePath("../GameMusic")
 
 [node name="IntroductionScreen" type="ReferenceRect" parent="GameCanvas"]
 custom_minimum_size = Vector2(1920, 1080)
@@ -61,12 +66,29 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 border_width = 0.0
 
-[node name="GuiltyButton" type="Button" parent="GameCanvas/GameScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameCanvas/GameScreen"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -66.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="GoBackToStoryButton" type="Button" parent="GameCanvas/GameScreen/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
-offset_left = 1720.0
-offset_top = 980.0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 2
+size_flags_vertical = 3
+text = "Read story again"
+
+[node name="GuiltyButton" type="Button" parent="GameCanvas/GameScreen/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
 text = "Show guilty person"
 
 [node name="InfoLabel" type="Label" parent="GameCanvas/GameScreen"]
@@ -107,6 +129,7 @@ columns = 3
 custom_minimum_size = Vector2(0, 700)
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("2_kjdet")
 text = "Character 1"
 
 [node name="Button2" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
@@ -171,9 +194,19 @@ grow_vertical = 0
 
 [node name="Result" type="Label" parent="GameCanvas/GameResultScreen"]
 custom_minimum_size = Vector2(1920, 1045)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -522.5
+offset_right = 960.0
+offset_bottom = 522.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game result"
 
 [node name="Back to menu" type="Button" parent="GameCanvas"]
 anchors_preset = 5
@@ -184,3 +217,8 @@ offset_right = 57.5
 offset_bottom = 31.0
 grow_horizontal = 2
 text = "Back to menu"
+
+[node name="GameMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_c1eul")
+autoplay = true
+bus = &"Music"
