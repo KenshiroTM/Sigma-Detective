@@ -100,7 +100,7 @@ public partial class GameCanvas : CanvasLayer
     }
 
     public void loadMenu()
-    {=
+    {
         GetTree().ChangeSceneToFile(GameManager.menuScene);
     }
 
