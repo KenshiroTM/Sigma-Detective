@@ -9,4 +9,10 @@ public partial class Story : Resource
     public List<bool> guiltyPeople; 
 
 
+    public Story(string desc, List<string> names, List<bool> guilty)
+    {
+        storyDesc = desc;
+        peopleNames = names;
+        guiltyPeople = guilty;
+    }
 }

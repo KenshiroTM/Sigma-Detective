@@ -36,16 +36,36 @@ public partial class GameCanvas : CanvasLayer
     [ExportSubgroup("GameAudio")]
     [Export] AudioStreamPlayer2D gameMusic;
 
+    public int outputLabel;
+    public string characterName = null;
+
     public override void _Ready()
     {
         GameManager.gameState = GameManager.GameState.InGame;
         GameManager.GenerateStory(); // generates story
 
+        //generation of button story ik it is so bad skull
+        story.Text = GameManager.currentStory.storyDesc;
+        char1.Text = GameManager.currentStory.peopleNames[0];
+        char2.Text = GameManager.currentStory.peopleNames[1];
+        char3.Text = GameManager.currentStory.peopleNames[2];
+
         gameMusic.Play();
 
         // TODO: somewhere game generation
 
+        // char1.Pressed = type to character
+
         backToMenuBtn.Pressed += loadMenu;
+        
+
+        //buttons for char
+        char1.Pressed += () => setCharacter(1, GameManager.currentStory.peopleNames[0]);
+        char2.Pressed += () => setCharacter(2, GameManager.currentStory.peopleNames[1]);
+        char3.Pressed += () => setCharacter(3, GameManager.currentStory.peopleNames[2]);
+
+        // sending messages to AI
+        sendButton.Pressed += () => typeTo(playerInputText.Text);
 
         //going back to story and vice versa
         continueBtn.Pressed += swapStory;
@@ -53,6 +73,7 @@ public partial class GameCanvas : CanvasLayer
 
         //show guilty button
         guiltyButton.Pressed += showGuilty;
+
     }
 
     public override void _PhysicsProcess(double delta)
@@ -80,19 +101,56 @@ public partial class GameCanvas : CanvasLayer
         charlabel3.Text = "Guilty?";
 
         // shows result of selected person
-        char1.Pressed += checkPlayerSelection;
-        char2.Pressed += checkPlayerSelection;
-        char3.Pressed += checkPlayerSelection;
+        char1.Pressed += () => checkPlayerSelection(0);
+        char2.Pressed += () => checkPlayerSelection(1);
+        char3.Pressed += () => checkPlayerSelection(2);
     }
 
-    public void checkPlayerSelection()
+    public void checkPlayerSelection(int position)
     {
         // checks if player's selection of guilty is the same as the one from story
-        GameManager.gameState = GameManager.GameState.GameWon; // to change to story checking!
+        if (GameManager.currentStory.guiltyPeople[position]) // checking pos with guilty people
+        {
+            GameManager.gameState = GameManager.GameState.GameWon;
+        }
+        else
+        {
+            GameManager.gameState = GameManager.GameState.GameLost;
+        }
+    }
+
+    public void setCharacter(int charOutput, string personName)
+    {
+        outputLabel = charOutput;
+        characterName = personName;
+        GD.Print(outputLabel);
+        GD.Print(characterName);
+    }
+
+    public void typeTo(string inputText)
+    {
+        if (characterName != null)
+        {
+            // miejsce na output z AI
+            switch (outputLabel)
+            {
+                case 1:
+                    charlabel1.Text = "AI output " + characterName;
+                    break;
+                case 2:
+                    charlabel2.Text = "AI output " + characterName;
+                    break;
+                case 3:
+                    charlabel3.Text = "AI output of " + characterName;
+                    break;
+            }
+
+        }
     }
 
     public void showResult()
     {   //Game result screen
+
         gameWindow.Visible = false;
         resultWindow.Visible = true;
 

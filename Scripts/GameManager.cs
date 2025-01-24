@@ -6,9 +6,8 @@ public partial class GameManager : Node
 {
     public static string gameScene = "res://Scenes/Game/Game.tscn";
     public static string menuScene = "res://Scenes/MainMenu/MainMenu.tscn";
-
-    public static List<Character> storyCharacters;
-    public static string story;
+    
+    public static Story currentStory = null;
 
     public enum GameState
     {
@@ -18,18 +17,17 @@ public partial class GameManager : Node
         GameLost
     }
 
-
-
     public static void GenerateStory()
     {
         // make it get story before
+        currentStory = allStories.getRandomStory();
 
-        storyCharacters.Add(new Character());
+        GD.Print(currentStory.storyDesc);
     }
 
     public static void ResetStory()
     {
-        storyCharacters.Clear();
+        currentStory = null;
     }
 
     public static GameState gameState = GameState.MainMenu;

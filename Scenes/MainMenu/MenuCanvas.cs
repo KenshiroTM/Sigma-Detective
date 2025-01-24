@@ -248,5 +248,6 @@ public partial class MenuCanvas : CanvasLayer
     public void StartGame()
     {
         GetTree().ChangeSceneToFile(GameManager.gameScene);
+        GameManager.GenerateStory();
     }
 }
