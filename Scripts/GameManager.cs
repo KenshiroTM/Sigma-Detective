@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json.Serialization;
 
 public partial class GameManager : Node
 {
@@ -20,8 +22,12 @@ public partial class GameManager : Node
     public static void GenerateStory()
     {
         // make it get story before
-        currentStory = allStories.getRandomStory();
+        
+        currentStory = StoriesReader.GetRandomStory();
 
+
+        //TODO: prompt for LLM models
+        GD.Print(currentStory.characterStartingPrompts[0]);
         GD.Print(currentStory.storyDesc);
     }
 

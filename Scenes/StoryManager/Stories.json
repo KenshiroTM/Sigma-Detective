@@ -1,0 +1,14 @@
+[
+  {
+	"storyDesc": "desc",
+	"peopleNames": ["one", "two", "three"],
+	"characterStartingPrompts": ["LMM prompt char1", "LMM prompt char2", "LLM prompt char3"],
+	"guiltyPeople": [false, true, false]
+  },
+  {
+	"storyDesc": "desc2",
+	"peopleNames": ["one", "two", "three"],
+	"characterStartingPrompts": ["LMM prompt char1", "LMM prompt char2", "LLM prompt char3"],
+	"guiltyPeople": [false, true, false]
+  }
+]
