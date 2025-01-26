@@ -94,6 +94,7 @@ public partial class GameCanvas : CanvasLayer
         sendButton.Visible = false;
 
         guiltyButton.Visible = false;
+        backToStoryButton.Visible = false;
         infoLabel.Visible = true;
 
         charlabel1.Text = "Guilty?";
