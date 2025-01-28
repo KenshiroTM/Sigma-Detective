@@ -1,14 +1,9 @@
 using Godot;
 using System;
-using System.Threading.Tasks;
 
-public partial class GameCanvas : Node
+public partial class GameCanvas : CanvasLayer
 {
-    private HuggingFaceAPI bot1API = new HuggingFaceAPI();
-    private HuggingFaceAPI bot2API = new HuggingFaceAPI();
-    private HuggingFaceAPI bot3API = new HuggingFaceAPI();
-
-    [ExportSubgroup("Windows")]
+	[ExportSubgroup("Windows")]
 	[Export] ReferenceRect introductionWindow;
 	[Export] ReferenceRect gameWindow;
 	[Export] ReferenceRect resultWindow;
@@ -27,10 +22,9 @@ public partial class GameCanvas : Node
 	[Export] Button char1;
 	[Export] Button char2;
 	[Export] Button char3;
-	[Export] RichTextLabel charlabel1;
-	[Export] RichTextLabel charlabel2;
-	[Export] RichTextLabel charlabel3;
-	[Export] Label SelectedCharacter;
+	[Export] Label charlabel1;
+	[Export] Label charlabel2;
+	[Export] Label charlabel3;
 
 	[ExportSubgroup("GameInput")]
 	[Export] TextEdit playerInputText;
@@ -42,64 +36,48 @@ public partial class GameCanvas : Node
 	[ExportSubgroup("GameAudio")]
 	[Export] AudioStreamPlayer2D gameMusic;
 
-	public int botNumber = -1;
+	public int outputLabel;
+	public string characterName = null;
 
-	bool initialized = false;
-
-    public override void _Ready()
+	public override void _Ready()
 	{
-
-        continueBtn.Visible = false;
-        GameManager.gameState = GameManager.GameState.InGame;
-        GameManager.GenerateStory(); // generates story
+		GameManager.gameState = GameManager.GameState.InGame;
+		GameManager.GenerateStory(); // generates story
 
 		//generation of button story ik it is so bad skull
 		story.Text = GameManager.currentStory.storyDesc;
-        char1.Text = GameManager.currentStory.peopleNames[0];
-        char2.Text = GameManager.currentStory.peopleNames[1];
-        char3.Text = GameManager.currentStory.peopleNames[2];
+		char1.Text = GameManager.currentStory.peopleNames[0];
+		char2.Text = GameManager.currentStory.peopleNames[1];
+		char3.Text = GameManager.currentStory.peopleNames[2];
 
-        // czekanie az skonczy prompty analizowac
-        var res1 = bot1API.SendPrompt(GameManager.currentStory.characterStartingPrompts[0]);
-        var res2 = bot2API.SendPrompt(GameManager.currentStory.characterStartingPrompts[1]);
-        var res3 = bot3API.SendPrompt(GameManager.currentStory.characterStartingPrompts[2]);
+		gameMusic.Play();
 
-        // TODO: somewhere game generation
+		// TODO: somewhere game generation
 
-        // char1.Pressed = type to character
+		// char1.Pressed = type to character
 
-        backToMenuBtn.Pressed += loadMenu;
+		backToMenuBtn.Pressed += loadMenu;
+		
 
+		//buttons for char
+		char1.Pressed += () => setCharacter(1, GameManager.currentStory.peopleNames[0]);
+		char2.Pressed += () => setCharacter(2, GameManager.currentStory.peopleNames[1]);
+		char3.Pressed += () => setCharacter(3, GameManager.currentStory.peopleNames[2]);
 
-        //buttons for char
-        char1.Pressed += () => ChangeBotNumber(0);
-        char2.Pressed += () => ChangeBotNumber(1);
-        char3.Pressed += () => ChangeBotNumber(2);
+		// sending messages to AI
+		sendButton.Pressed += () => typeTo(playerInputText.Text);
 
-        sendButton.Pressed += () => GenerateResponse();
+		//going back to story and vice versa
+		continueBtn.Pressed += swapStory;
+		backToStoryButton.Pressed += swapStory;
 
-        //going back to story and vice versa
-        continueBtn.Pressed += swapStory;
-        backToStoryButton.Pressed += swapStory;
+		//show guilty button
+		guiltyButton.Pressed += showGuilty;
 
-        //show guilty button
-        guiltyButton.Pressed += showGuilty;
-
-        gameMusic.Play();
-        continueBtn.Visible = true;
-		base._Ready();
-
-        GD.Print("Game Loaded!");
-    }
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(initialized == false)
-		{
-
-			initialized = true;
-		}
-
 		// checking for states
 		if (GameManager.gameState != GameManager.GameState.InGame)
 		{
@@ -142,46 +120,36 @@ public partial class GameCanvas : Node
 		}
 	}
 
-    public async void GenerateResponse()
-    {
-		if (botNumber != -1)
-		{
-			string userInput = playerInputText.Text;
+	public void setCharacter(int charOutput, string personName)
+	{
+		outputLabel = charOutput;
+		characterName = personName;
+		GD.Print(outputLabel);
+		GD.Print(characterName);
+	}
 
-			// Odpowiedzi 
-			switch (botNumber)
+	public void typeTo(string inputText)
+	{
+		if (characterName != null)
+		{
+			// miejsce na output z AI
+			switch (outputLabel)
 			{
-				case 0:
-					sendButton.Disabled = true;
-					string responseBot1 = await bot1API.SendPrompt($"Chatbot 1: {userInput}");
-					charlabel1.Text = $"{GameManager.currentStory.peopleNames[0]}: {responseBot1}";
-					sendButton.Disabled = false;
-					break;
 				case 1:
-					sendButton.Disabled = true;
-					string responseBot2 = await bot2API.SendPrompt($"Chatbot 2: {userInput}");
-					charlabel2.Text = $"{GameManager.currentStory.peopleNames[1]}: {responseBot2}";
-					sendButton.Disabled = false;
+					charlabel1.Text = "AI output " + characterName;
 					break;
 				case 2:
-					sendButton.Disabled = true;
-					string responseBot3 = await bot3API.SendPrompt($"Chatbot 3: {userInput}");
-					charlabel3.Text = $"{GameManager.currentStory.peopleNames[2]}: {responseBot3}";
-					sendButton.Disabled = false;
+					charlabel2.Text = "AI output " + characterName;
+					break;
+				case 3:
+					charlabel3.Text = "AI output of " + characterName;
 					break;
 			}
-			// Czyszczenie pola wprowadzania tekstu
-			playerInputText.Clear();
+
 		}
-    }
+	}
 
-    public void ChangeBotNumber(int num)
-    {
-        botNumber = num;
-		SelectedCharacter.Text = $"Piszesz do: {GameManager.currentStory.peopleNames[num]}";
-    }
-
-    public void showResult()
+	public void showResult()
 	{   //Game result screen
 
 		gameWindow.Visible = false;

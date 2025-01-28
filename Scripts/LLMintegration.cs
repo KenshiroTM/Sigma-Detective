@@ -4,8 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-public partial class HuggingFaceAPI
-{ 
+public partial class HuggingFaceAPI : Node
+{
 	private static readonly System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
 	private const string API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-2.7B";
 	private const string API_TOKEN = "Sigma_Detective"; // Wstaw swój token
@@ -21,12 +21,12 @@ public partial class HuggingFaceAPI
 
 		try
 		{
-			// Wysłanie zapytania
+			// Wytry
+		
 			var response = await client.SendAsync(request);
 			response.EnsureSuccessStatusCode();
 			var responseString = await response.Content.ReadAsStringAsync();
 
-			// odp
 			var responseData = JsonConvert.DeserializeObject<dynamic>(responseString);
 			return responseData[0]?.generated_text ?? "Błąd w odpowiedzi API";
 		}
@@ -35,4 +35,4 @@ public partial class HuggingFaceAPI
 			return $"Błąd komunikacji: {e.Message}";
 		}
 	}
-}
+	}
