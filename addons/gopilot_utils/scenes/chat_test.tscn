@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnlgp2rpixeqt"]
+
+[ext_resource type="PackedScene" uid="uid://buk3mdqtutkvd" path="res://addons/gopilot_utils/scenes/chat_conversation.tscn" id="1_7w8jj"]
+[ext_resource type="Script" path="res://addons/gopilot_utils/scripts/chat_test.gd" id="1_qcemt"]
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="2_v1xqe"]
+[ext_resource type="Texture2D" uid="uid://chw8x0p05hr03" path="res://addons/gopilot_utils/textures/Stop.png" id="3_sa5od"]
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="7_oqa68"]
+
+[node name="ChatTester" type="VSplitContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = -80
+script = ExtResource("1_qcemt")
+SEND_ICON = ExtResource("2_v1xqe")
+STOP_ICON = ExtResource("3_sa5od")
+
+[node name="ChatConversation" parent="." instance=ExtResource("1_7w8jj")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 200)
+layout_mode = 2
+size_flags_vertical = 3
+welcome_message_visible = false
+warning_visible = false
+
+[node name="PromptField" parent="." instance=ExtResource("7_oqa68")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="prompt_submitted" from="PromptField" to="." method="_on_prompt_submitted"]
+[connection signal="stop_pressed" from="PromptField" to="." method="_on_prompt_field_stop_pressed"]

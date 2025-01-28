@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://di5m3qtv6m6pk"]
+
+[ext_resource type="Script" path="res://addons/gopilot_utils/examples/chat_example.gd" id="1_hxdfa"]
+[ext_resource type="Script" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="2_xqy57"]
+
+[node name="ChatExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxdfa")
+
+[node name="User" type="CodeEdit" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 241.0
+offset_right = 444.0
+offset_bottom = 361.0
+
+[node name="AI" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 594.0
+offset_top = 68.0
+offset_right = 999.0
+offset_bottom = 618.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 382.0
+offset_right = 438.0
+offset_bottom = 434.0
+text = "send"
+
+[node name="ChatRequester" type="Node" parent="."]
+script = ExtResource("2_xqy57")
+model = "qwen2.5-coder:1.5b-instruct-fp16"
+system_prompt = "You will use internet lingo whenever possible"
+internal_system_prompt = "You will use internet lingo whenever possible"
+
+[node name="Stop" type="Button" parent="."]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 388.0
+offset_right = 250.0
+offset_bottom = 443.0
+text = "STOP"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="new_word" from="ChatRequester" to="." method="_on_chat_requester_new_word"]
+[connection signal="pressed" from="Stop" to="." method="_on_stop_pressed"]
