@@ -15,7 +15,7 @@ public partial class HuggingFaceAPI
 		// Przygotowanie żądania
 		var requestBody = new { inputs = prompt };
 		var jsonContent = JsonConvert.SerializeObject(requestBody);
-		var request = new HttpRequestMessage(HttpMethod.Post, API_URL);
+		var request = new System.Net.Http.HttpRequestMessage(HttpMethod.Post, API_URL);
 		request.Headers.Add("Authorization", $"Bearer {API_TOKEN}");
 		request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 

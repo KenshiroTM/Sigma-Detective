@@ -28,7 +28,6 @@ public partial class StoriesReader : Resource
     public static Story GetRandomStory()
     {
         List<Story> stories = LoadStories(pathname);
-        GD.Print(stories);
         int i = (int)rand.Next(0, stories.Count);
         return stories[i];
     }

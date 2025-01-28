@@ -6,7 +6,7 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton", "gameResults", "gameMusic")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "SelectedCharacter", "playerInputText", "sendButton", "gameResults", "gameMusic")]
 script = ExtResource("1_y8jxn")
 introductionWindow = NodePath("IntroductionScreen")
 gameWindow = NodePath("GameScreen")
@@ -17,12 +17,13 @@ continueBtn = NodePath("IntroductionScreen/VBoxContainer/ContinueButton")
 guiltyButton = NodePath("GameScreen/VBoxContainer/GuiltyButton")
 backToStoryButton = NodePath("GameScreen/VBoxContainer/GoBackToStoryButton")
 infoLabel = NodePath("GameScreen/InfoLabel")
-char1 = NodePath("GameScreen/InteractionContainer/GridContainer/Button")
-char2 = NodePath("GameScreen/InteractionContainer/GridContainer/Button2")
-char3 = NodePath("GameScreen/InteractionContainer/GridContainer/Button3")
-charlabel1 = NodePath("GameScreen/InteractionContainer/GridContainer/Label")
-charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/Label2")
-charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/Label3")
+char1 = NodePath("GameScreen/InteractionContainer/GridContainer/character1")
+char2 = NodePath("GameScreen/InteractionContainer/GridContainer/character2")
+char3 = NodePath("GameScreen/InteractionContainer/GridContainer/character3")
+charlabel1 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput1")
+charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput2")
+charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput3")
+SelectedCharacter = NodePath("GameScreen/InteractionContainer/SelectedCharacter")
 playerInputText = NodePath("GameScreen/InteractionContainer/Input/TextEdit")
 sendButton = NodePath("GameScreen/InteractionContainer/Input/Send")
 gameResults = NodePath("GameResultScreen/Result")
@@ -41,9 +42,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -960.0
-offset_top = -1045.0
-offset_right = 960.0
+offset_left = -825.0
+offset_top = -1080.0
+offset_right = 825.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -52,6 +53,11 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Introduction to the story...
 press on character button to send message to him, after that output will appear. You can change character you can write to by clicking other character. (higfhlight of selected character would be nice, also picking a guilty character)"
+
+[node name="Instruction" type="RichTextLabel" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "Tutaj instrukcja do gry lol"
 
 [node name="ContinueButton" type="Button" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
@@ -115,53 +121,51 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = -750.0
+offset_top = -1065.0
+offset_right = 750.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="GridContainer" type="GridContainer" parent="GameCanvas/GameScreen/InteractionContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 columns = 3
 
-[node name="Button" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 700)
+[node name="character1" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_kjdet")
 text = "Character 1"
 
-[node name="Button2" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
+[node name="character2" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character 2"
 
-[node name="Button3" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
+[node name="character3" type="Button" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character 3"
 
-[node name="Label" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 230)
+[node name="characterOutput1" type="RichTextLabel" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Character output"
-horizontal_alignment = 1
+size_flags_vertical = 3
+text = "Jeszcze nie przesłuchano"
 
-[node name="Label2" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 230)
+[node name="characterOutput2" type="RichTextLabel" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Character output"
-horizontal_alignment = 1
+text = "Jeszcze nie przesłuchano"
 
-[node name="Label3" type="Label" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 230)
+[node name="characterOutput3" type="RichTextLabel" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Character output"
-horizontal_alignment = 1
+text = "Jeszcze nie przesłuchano"
+
+[node name="SelectedCharacter" type="Label" parent="GameCanvas/GameScreen/InteractionContainer"]
+layout_mode = 2
+text = "Nie wybrano postaci do pogawędki..."
 
 [node name="Input" type="HBoxContainer" parent="GameCanvas/GameScreen/InteractionContainer"]
 layout_mode = 2
@@ -209,13 +213,12 @@ grow_vertical = 2
 text = "Game result"
 
 [node name="Back to menu" type="Button" parent="GameCanvas"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -57.5
-offset_right = 57.5
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -115.0
 offset_bottom = 31.0
-grow_horizontal = 2
+grow_horizontal = 0
 text = "Back to menu"
 
 [node name="GameMusic" type="AudioStreamPlayer2D" parent="."]
