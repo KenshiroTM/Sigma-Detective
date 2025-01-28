@@ -11,9 +11,10 @@ public partial class MenuCanvas : CanvasLayer
 
     [ExportSubgroup("PlayButtons")]
     [Export] public Button backToMenuFromPlay;
+    [Export] public Button gamePlayButton;
 
     [ExportSubgroup("OptionsWindowsButtons")]
-    [Export] public Button gamePlayButton;
+    
     [Export] public Button backToMenuBtn;
 
     [Export] public OptionButton resolutionSelect;
@@ -41,6 +42,8 @@ public partial class MenuCanvas : CanvasLayer
 
     public override void _Ready() //if runs the game for first time
     {
+        GD.Print("Menu Loaded");
+
         GameManager.gameState = GameManager.GameState.MainMenu;
         GameManager.ResetStory(); // resets story on launch
 

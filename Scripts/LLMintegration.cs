@@ -4,9 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-public class HuggingFaceAPI : Node
-{
-	private static readonly HttpClient client = new HttpClient();
+public partial class HuggingFaceAPI
+{ 
+	private static readonly System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
 	private const string API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-2.7B";
 	private const string API_TOKEN = "Sigma_Detective"; // Wstaw swój token
 
