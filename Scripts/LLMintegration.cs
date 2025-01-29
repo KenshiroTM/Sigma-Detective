@@ -3,17 +3,30 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-public partial class HuggingFaceAPI
-{ 
-	private static readonly System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+// Dodaj alias dla HttpClient
+using SystemNetHttpClient = System.Net.Http.HttpClient;
+
+public partial class TogetherAI : Node
+{
+	// Użyj aliasu dla HttpClient
+	private static readonly SystemNetHttpClient client = new SystemNetHttpClient();
 	private const string API_URL = "https://api.together.xyz/v1/chat/completions";
-	private const string API_TOKEN = "e61825b570641dcb59bda2f606438b58476b24e4f801c98e21f8a49a872e3c6d"; // Wstaw swój token
+	private const string API_TOKEN = "e61825b570641dcb59bda2f606438b58476b24e4f801c98e21f8a49a872e3c6d"; // Wklej swój klucz API!
 
 	public async Task<string> SendPrompt(string prompt)
 	{
-		// Przygotowanie żądania
-		var requestBody = new { inputs = prompt };
+		// Poprawny format zapytania do Together AI
+		var requestBody = new
+		{
+			model = "meta-llama/Llama-Vision-Free",
+			messages = new[]
+			{
+				new { role = "user", content = prompt }
+			}
+		};
+
 		var jsonContent = JsonConvert.SerializeObject(requestBody);
 		var request = new System.Net.Http.HttpRequestMessage(HttpMethod.Post, API_URL);
 		request.Headers.Add("Authorization", $"Bearer {API_TOKEN}");
@@ -23,16 +36,22 @@ public partial class HuggingFaceAPI
 		{
 			// Wysłanie zapytania
 			var response = await client.SendAsync(request);
-			response.EnsureSuccessStatusCode();
-			var responseString = await response.Content.ReadAsStringAsync();
+			string responseString = await response.Content.ReadAsStringAsync();
 
-			// odp
-			var responseData = JsonConvert.DeserializeObject<dynamic>(responseString);
-			return responseData[0]?.generated_text ?? "Błąd w odpowiedzi API";
+			if (!response.IsSuccessStatusCode)
+			{
+				GD.PrintErr($"Błąd API: {response.StatusCode} - {responseString}");
+				return "Błąd w zapytaniu!";
+			}
+
+			// Parsowanie JSON
+			var responseData = JObject.Parse(responseString);
+			return responseData["choices"]?[0]?["message"]?["content"]?.ToString() ?? "Brak odpowiedzi!";
 		}
 		catch (HttpRequestException e)
 		{
-			return $"Błąd komunikacji: {e.Message}";
+			GD.PrintErr($"Błąd komunikacji: {e.Message}");
+			return "Błąd komunikacji z API!";
 		}
 	}
 }
