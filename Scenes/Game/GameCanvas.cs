@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 
 public partial class GameCanvas : Node
 {
-	private HuggingFaceAPI bot1API = new HuggingFaceAPI();
-	private HuggingFaceAPI bot2API = new HuggingFaceAPI();
-	private HuggingFaceAPI bot3API = new HuggingFaceAPI();
+	private TogetherAI bot1API = new TogetherAI();
+	private TogetherAI bot2API = new TogetherAI();
+	private TogetherAI bot3API = new TogetherAI();
+
 
 	[ExportSubgroup("Windows")]
 	[Export] ReferenceRect introductionWindow;

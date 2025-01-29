@@ -6,7 +6,7 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton", "gameResults", "gameMusic")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "SelectedCharacter", "playerInputText", "sendButton", "gameResults", "gameMusic")]
 script = ExtResource("1_y8jxn")
 introductionWindow = NodePath("IntroductionScreen")
 gameWindow = NodePath("GameScreen")
@@ -23,6 +23,7 @@ char3 = NodePath("GameScreen/InteractionContainer/GridContainer/character3")
 charlabel1 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput1")
 charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput2")
 charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput3")
+SelectedCharacter = NodePath("GameScreen/InteractionContainer/SelectedCharacter")
 playerInputText = NodePath("GameScreen/InteractionContainer/Input/TextEdit")
 sendButton = NodePath("GameScreen/InteractionContainer/Input/Send")
 gameResults = NodePath("GameResultScreen/Result")
