@@ -49,8 +49,6 @@ public partial class GameCanvas : Node
 
 	public override void _Ready()
 	{
-
-		continueBtn.Visible = false;
 		GameManager.gameState = GameManager.GameState.InGame;
 		GameManager.GenerateStory(); // generates story
 
@@ -60,14 +58,7 @@ public partial class GameCanvas : Node
 		char2.Text = GameManager.currentStory.peopleNames[1];
 		char3.Text = GameManager.currentStory.peopleNames[2];
 
-		// czekanie az skonczy prompty analizowac
-		var res1 = bot1API.SendPrompt(GameManager.currentStory.characterStartingPrompts[0]);
-		var res2 = bot2API.SendPrompt(GameManager.currentStory.characterStartingPrompts[1]);
-		var res3 = bot3API.SendPrompt(GameManager.currentStory.characterStartingPrompts[2]);
-
-		// TODO: somewhere game generation
-
-		// char1.Pressed = type to character
+		PrepareBots();
 
 		backToMenuBtn.Pressed += loadMenu;
 
@@ -87,11 +78,24 @@ public partial class GameCanvas : Node
 		guiltyButton.Pressed += showGuilty;
 
 		gameMusic.Play();
-		continueBtn.Visible = true;
+		
 		base._Ready();
 
 		GD.Print("Game Loaded!");
 	}
+
+	public async void PrepareBots()
+	{
+        continueBtn.Visible = false;
+
+        var res1 = await bot1API.SendPrompt(GameManager.currentStory.characterStartingPrompts[0]);
+        var res2 = await bot2API.SendPrompt(GameManager.currentStory.characterStartingPrompts[1]);
+        var res3 = await bot3API.SendPrompt(GameManager.currentStory.characterStartingPrompts[2]);
+
+		GD.Print(res3);
+        continueBtn.Visible = true;
+    }
+
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -154,19 +158,19 @@ public partial class GameCanvas : Node
 			{
 				case 0:
 					sendButton.Disabled = true;
-					string responseBot1 = await bot1API.SendPrompt($"Chatbot 1: {userInput}");
+					string responseBot1 = await bot1API.SendPrompt($"Chatbot 1: {GameManager.currentStory.characterStartingPrompts[0] + "Here is the question: " + userInput}");
 					charlabel1.Text = $"{GameManager.currentStory.peopleNames[0]}: {responseBot1}";
 					sendButton.Disabled = false;
 					break;
 				case 1:
 					sendButton.Disabled = true;
-					string responseBot2 = await bot2API.SendPrompt($"Chatbot 2: {userInput}");
+					string responseBot2 = await bot2API.SendPrompt($"Chatbot 2: {GameManager.currentStory.characterStartingPrompts[1] + "Here is the question: " + userInput}");
 					charlabel2.Text = $"{GameManager.currentStory.peopleNames[1]}: {responseBot2}";
 					sendButton.Disabled = false;
 					break;
 				case 2:
 					sendButton.Disabled = true;
-					string responseBot3 = await bot3API.SendPrompt($"Chatbot 3: {userInput}");
+					string responseBot3 = await bot3API.SendPrompt($"Chatbot 3: {GameManager.currentStory.characterStartingPrompts[2] + "Here is the question: " + userInput}");
 					charlabel3.Text = $"{GameManager.currentStory.peopleNames[2]}: {responseBot3}";
 					sendButton.Disabled = false;
 					break;
