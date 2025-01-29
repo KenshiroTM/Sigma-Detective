@@ -57,7 +57,7 @@ press on character button to send message to him, after that output will appear.
 [node name="Instruction" type="RichTextLabel" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
-text = "Tutaj instrukcja do gry lol"
+text = "<Tutaj instrukcja do gry>"
 
 [node name="ContinueButton" type="Button" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
