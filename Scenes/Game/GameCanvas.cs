@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 public partial class GameCanvas : Node
 {
-    private HuggingFaceAPI bot1API = new HuggingFaceAPI();
-    private HuggingFaceAPI bot2API = new HuggingFaceAPI();
-    private HuggingFaceAPI bot3API = new HuggingFaceAPI();
+	private HuggingFaceAPI bot1API = new HuggingFaceAPI();
+	private HuggingFaceAPI bot2API = new HuggingFaceAPI();
+	private HuggingFaceAPI bot3API = new HuggingFaceAPI();
 
-    [ExportSubgroup("Windows")]
+	[ExportSubgroup("Windows")]
 	[Export] ReferenceRect introductionWindow;
 	[Export] ReferenceRect gameWindow;
 	[Export] ReferenceRect resultWindow;
@@ -46,51 +46,51 @@ public partial class GameCanvas : Node
 
 	bool initialized = false;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 
-        continueBtn.Visible = false;
-        GameManager.gameState = GameManager.GameState.InGame;
-        GameManager.GenerateStory(); // generates story
+		continueBtn.Visible = false;
+		GameManager.gameState = GameManager.GameState.InGame;
+		GameManager.GenerateStory(); // generates story
 
 		//generation of button story ik it is so bad skull
 		story.Text = GameManager.currentStory.storyDesc;
-        char1.Text = GameManager.currentStory.peopleNames[0];
-        char2.Text = GameManager.currentStory.peopleNames[1];
-        char3.Text = GameManager.currentStory.peopleNames[2];
+		char1.Text = GameManager.currentStory.peopleNames[0];
+		char2.Text = GameManager.currentStory.peopleNames[1];
+		char3.Text = GameManager.currentStory.peopleNames[2];
 
-        // czekanie az skonczy prompty analizowac
-        var res1 = bot1API.SendPrompt(GameManager.currentStory.characterStartingPrompts[0]);
-        var res2 = bot2API.SendPrompt(GameManager.currentStory.characterStartingPrompts[1]);
-        var res3 = bot3API.SendPrompt(GameManager.currentStory.characterStartingPrompts[2]);
+		// czekanie az skonczy prompty analizowac
+		var res1 = bot1API.SendPrompt(GameManager.currentStory.characterStartingPrompts[0]);
+		var res2 = bot2API.SendPrompt(GameManager.currentStory.characterStartingPrompts[1]);
+		var res3 = bot3API.SendPrompt(GameManager.currentStory.characterStartingPrompts[2]);
 
-        // TODO: somewhere game generation
+		// TODO: somewhere game generation
 
-        // char1.Pressed = type to character
+		// char1.Pressed = type to character
 
-        backToMenuBtn.Pressed += loadMenu;
+		backToMenuBtn.Pressed += loadMenu;
 
 
-        //buttons for char
-        char1.Pressed += () => ChangeBotNumber(0);
-        char2.Pressed += () => ChangeBotNumber(1);
-        char3.Pressed += () => ChangeBotNumber(2);
+		//buttons for char
+		char1.Pressed += () => ChangeBotNumber(0);
+		char2.Pressed += () => ChangeBotNumber(1);
+		char3.Pressed += () => ChangeBotNumber(2);
 
-        sendButton.Pressed += () => GenerateResponse();
+		sendButton.Pressed += () => GenerateResponse();
 
-        //going back to story and vice versa
-        continueBtn.Pressed += swapStory;
-        backToStoryButton.Pressed += swapStory;
+		//going back to story and vice versa
+		continueBtn.Pressed += swapStory;
+		backToStoryButton.Pressed += swapStory;
 
-        //show guilty button
-        guiltyButton.Pressed += showGuilty;
+		//show guilty button
+		guiltyButton.Pressed += showGuilty;
 
-        gameMusic.Play();
-        continueBtn.Visible = true;
+		gameMusic.Play();
+		continueBtn.Visible = true;
 		base._Ready();
 
-        GD.Print("Game Loaded!");
-    }
+		GD.Print("Game Loaded!");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -142,8 +142,8 @@ public partial class GameCanvas : Node
 		}
 	}
 
-    public async void GenerateResponse()
-    {
+	public async void GenerateResponse()
+	{
 		if (botNumber != -1)
 		{
 			string userInput = playerInputText.Text;
@@ -173,15 +173,15 @@ public partial class GameCanvas : Node
 			// Czyszczenie pola wprowadzania tekstu
 			playerInputText.Clear();
 		}
-    }
+	}
 
-    public void ChangeBotNumber(int num)
-    {
-        botNumber = num;
+	public void ChangeBotNumber(int num)
+	{
+		botNumber = num;
 		SelectedCharacter.Text = $"Piszesz do: {GameManager.currentStory.peopleNames[num]}";
-    }
+	}
 
-    public void showResult()
+	public void showResult()
 	{   //Game result screen
 
 		gameWindow.Visible = false;

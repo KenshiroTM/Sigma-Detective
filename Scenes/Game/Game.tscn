@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Scenes/Game/GameCanvas.cs" id="1_y8jxn"]
 [ext_resource type="AudioStream" uid="uid://dnpacwnqch3j0" path="res://Audio/Music/Sigma_Game.mp3" id="2_c1eul"]
-[ext_resource type="Theme" uid="uid://xwq5c7i34x3s" path="res://Scenes/Game/CharacterButton.tres" id="2_kjdet"]
+[ext_resource type="Theme" path="res://Scenes/Game/CharacterButton.tres" id="2_kjdet"]
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "SelectedCharacter", "playerInputText", "sendButton", "gameResults", "gameMusic")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton", "gameResults", "gameMusic")]
 script = ExtResource("1_y8jxn")
 introductionWindow = NodePath("IntroductionScreen")
 gameWindow = NodePath("GameScreen")
@@ -23,7 +23,6 @@ char3 = NodePath("GameScreen/InteractionContainer/GridContainer/character3")
 charlabel1 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput1")
 charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput2")
 charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput3")
-SelectedCharacter = NodePath("GameScreen/InteractionContainer/SelectedCharacter")
 playerInputText = NodePath("GameScreen/InteractionContainer/Input/TextEdit")
 sendButton = NodePath("GameScreen/InteractionContainer/Input/Send")
 gameResults = NodePath("GameResultScreen/Result")

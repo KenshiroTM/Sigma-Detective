@@ -7,8 +7,8 @@ using Newtonsoft.Json;
 public partial class HuggingFaceAPI
 { 
 	private static readonly System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
-	private const string API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-2.7B";
-	private const string API_TOKEN = "Sigma_Detective"; // Wstaw swój token
+	private const string API_URL = "https://api.together.xyz/v1/chat/completions";
+	private const string API_TOKEN = "e61825b570641dcb59bda2f606438b58476b24e4f801c98e21f8a49a872e3c6d"; // Wstaw swój token
 
 	public async Task<string> SendPrompt(string prompt)
 	{
