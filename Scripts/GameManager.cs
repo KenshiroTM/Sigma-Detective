@@ -22,13 +22,7 @@ public partial class GameManager : Node
 	public static void GenerateStory()
 	{
 		// make it get story before
-		
 		currentStory = StoriesReader.GetRandomStory();
-
-
-		//TODO: prompt for LLM models
-		GD.Print(currentStory.characterStartingPrompts[0]);
-		GD.Print(currentStory.storyDesc);
 	}
 
 	public static void ResetStory()

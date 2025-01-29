@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Scenes/Game/GameCanvas.cs" id="1_y8jxn"]
 [ext_resource type="AudioStream" uid="uid://dnpacwnqch3j0" path="res://Audio/Music/Sigma_Game.mp3" id="2_c1eul"]
-[ext_resource type="Theme" path="res://Scenes/Game/CharacterButton.tres" id="2_kjdet"]
+[ext_resource type="Theme" uid="uid://xwq5c7i34x3s" path="res://Scenes/Game/CharacterButton.tres" id="2_kjdet"]
 
 [node name="Game" type="Node2D"]
 
-[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "playerInputText", "sendButton", "gameResults", "gameMusic")]
+[node name="GameCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("introductionWindow", "gameWindow", "resultWindow", "backToMenuBtn", "story", "continueBtn", "guiltyButton", "backToStoryButton", "infoLabel", "char1", "char2", "char3", "charlabel1", "charlabel2", "charlabel3", "SelectedCharacter", "playerInputText", "sendButton", "gameResults", "gameMusic")]
 script = ExtResource("1_y8jxn")
 introductionWindow = NodePath("IntroductionScreen")
 gameWindow = NodePath("GameScreen")
@@ -23,6 +23,7 @@ char3 = NodePath("GameScreen/InteractionContainer/GridContainer/character3")
 charlabel1 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput1")
 charlabel2 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput2")
 charlabel3 = NodePath("GameScreen/InteractionContainer/GridContainer/characterOutput3")
+SelectedCharacter = NodePath("GameScreen/InteractionContainer/SelectedCharacter")
 playerInputText = NodePath("GameScreen/InteractionContainer/Input/TextEdit")
 sendButton = NodePath("GameScreen/InteractionContainer/Input/Send")
 gameResults = NodePath("GameResultScreen/Result")
@@ -54,9 +55,13 @@ text = "Introduction to the story...
 press on character button to send message to him, after that output will appear. You can change character you can write to by clicking other character. (higfhlight of selected character would be nice, also picking a guilty character)"
 
 [node name="Instruction" type="RichTextLabel" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
-custom_minimum_size = Vector2(200, 100)
+custom_minimum_size = Vector2(200, 120)
 layout_mode = 2
-text = "<Tutaj instrukcja do gry>"
+text = "How to play:
+Interrogate three characters to find out which one is guilty. To select a character press character's image and type your question in text imput, after typing press \"send message\" to get a response.
+When you're ready, click the \"show guilty\" button and press the character's icon to mark as responsible for the crime.
+Remember, there is only one guilty person.
+Good luck!"
 
 [node name="ContinueButton" type="Button" parent="GameCanvas/IntroductionScreen/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
@@ -152,19 +157,19 @@ text = "Character 3"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Jeszcze nie przesłuchano"
+text = "Not talked to yet.."
 
 [node name="characterOutput2" type="RichTextLabel" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
-text = "Jeszcze nie przesłuchano"
+text = "Not talked to yet.."
 
 [node name="characterOutput3" type="RichTextLabel" parent="GameCanvas/GameScreen/InteractionContainer/GridContainer"]
 layout_mode = 2
-text = "Jeszcze nie przesłuchano"
+text = "Not talked to yet.."
 
 [node name="SelectedCharacter" type="Label" parent="GameCanvas/GameScreen/InteractionContainer"]
 layout_mode = 2
-text = "Nie wybrano postaci do pogawędki..."
+text = "Did not select character to type to.."
 
 [node name="Input" type="HBoxContainer" parent="GameCanvas/GameScreen/InteractionContainer"]
 layout_mode = 2
