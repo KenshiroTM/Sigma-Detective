@@ -12,8 +12,8 @@ public partial class TogetherAI : Node
 {
 	// Użyj aliasu dla HttpClient
 	private static readonly SystemNetHttpClient client = new SystemNetHttpClient();
-	private const string API_URL = "https://api.together.xyz/v1/chat/completions";
-	private const string API_TOKEN = "e61825b570641dcb59bda2f606438b58476b24e4f801c98e21f8a49a872e3c6d"; // Wklej swój klucz API!
+	private const string API_URL = "";
+	private const string API_TOKEN = ""; // Wklej swój klucz API!
 
 	public async Task<string> SendPrompt(string prompt)
 	{
